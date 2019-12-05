@@ -23,7 +23,7 @@ export class ToolbarComponent {
       taskId: null,
       mainTaskNo: null,
       subTaskNo: null,
-      assignedDate: (new Date()).toISOString(),
+      assignedDate: tadayDate,
       doneDate: null,
       type: null,
       status: null,

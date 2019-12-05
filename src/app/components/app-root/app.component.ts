@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { ITask } from 'src/app/models/task.model';
+import { ITask } from '../../models/task.model';
+import { ServerService } from '../../services/server.service';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +9,14 @@ import { ITask } from 'src/app/models/task.model';
 })
 export class AppComponent {
   
+  constructor(private serverService: ServerService) {}
+
   addTask(task: ITask) {
     if (task) {
-      console.log('>>>>> task', task);
+      this.serverService.addNewTask(task).subscribe(res => {
+        console.log('>>>', res);
+      }, err => console.error('>>> err:', err), () => console.log( 'completed...'));
+      
     }
   }
 }

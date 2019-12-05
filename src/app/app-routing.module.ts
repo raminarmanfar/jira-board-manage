@@ -7,11 +7,11 @@ import { TasksListComponent } from './components/tasks-list/tasks-list.component
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/tasks-list',
+    redirectTo: '/taskslist',
     pathMatch: 'full'
   },
   {
-    path: 'tasks-list',
+    path: 'taskslist',
     component: TasksListComponent
   },
   { path: '**', component: PageNotFoundComponent }

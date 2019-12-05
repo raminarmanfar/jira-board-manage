@@ -1,3 +1,5 @@
+import { ServerService } from './../../services/server.service';
+import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
@@ -17,6 +19,7 @@ export class TaskDetailComponent {
   taskForm: FormGroup;
 
   constructor(
+    private serverService: ServerService,
     fb: FormBuilder,
     public dialogRef: MatDialogRef<TaskDetailComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DetailPageData) {
