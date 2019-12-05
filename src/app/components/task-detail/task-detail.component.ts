@@ -32,10 +32,10 @@ export class TaskDetailComponent {
     }
 
   onCancelClick(): void {
-    this.dialogRef.close(undefined);
+    this.dialogRef.close(null);
   }
 
   onFormSubmit() {
-    this.dialogRef.close(this.taskForm);
+    this.dialogRef.close(this.taskForm.getRawValue());
   }
 }

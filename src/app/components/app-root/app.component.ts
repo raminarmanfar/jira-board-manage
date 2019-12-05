@@ -9,9 +9,9 @@ import { FormGroup } from '@angular/forms';
 })
 export class AppComponent {
   
-  addTask(taskForm: FormGroup) {
-    console.log('>>>>> task form:', taskForm);
-    const task: ITask = taskForm.getRawValue();
-    console.log('>>>>> task', task);
+  addTask(task: ITask) {
+    if (task) {
+      console.log('>>>>> task', task);
+    }
   }
 }
