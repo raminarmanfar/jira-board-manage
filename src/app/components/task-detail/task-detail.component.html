@@ -1,0 +1,72 @@
+<form class="example-form" [formGroup]="form">
+  <h1 mat-dialog-title>Add a new task</h1>
+  <div mat-dialog-content class="mat-form">
+    <table class="example-full-width" cellspacing="2">
+      <tr>
+        <td class="col">
+          <mat-form-field class="example-full-width">
+            <input matInput #mainTaskNo maxlength="4" placeholder="Main Task No" formControlName="mainTaskNo" appAutoFocus/>
+            <mat-hint align="end">{{ mainTaskNo.value.length }} / 4</mat-hint>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field class="example-full-width">
+            <input matInput #subTaskNo maxlength="4" placeholder="Sub Task No" formControlName="subTaskNo"/>
+            <mat-hint align="end">{{ subTaskNo.value.length }} / 4</mat-hint>
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field class="example-full-width">
+              <input matInput [matDatepicker]="assignedPicker" placeholder="َAssign Date" formControlName="assignDate">
+              <mat-datepicker-toggle matSuffix [for]="assignedPicker"></mat-datepicker-toggle>
+              <mat-datepicker #assignedPicker></mat-datepicker>
+            </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field class="example-full-width">
+            <input matInput [matDatepicker]="DonePicker" placeholder="َDone Date" formControlName="doneDate">
+            <mat-datepicker-toggle matSuffix [for]="DonePicker"></mat-datepicker-toggle>
+            <mat-datepicker #DonePicker></mat-datepicker>
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field class="example-full-width">
+              <mat-label>Task Type</mat-label>
+              <mat-select>
+                <mat-option *ngFor="let type of taskTypes | enumToArray" [value]="type">
+                  {{ type }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field class="example-full-width">
+            <mat-label>Status</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let status of taskStatus | enumToArray" [value]="status">
+                {{ status }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <mat-form-field class="example-full-width">
+            <textarea matInput placeholder="Description"></textarea>
+          </mat-form-field>      
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div mat-dialog-actions class="btn-container">
+    <button mat-raised-button (click)="onNoClick()" color="accent">Cancel</button>
+    <button mat-raised-button [mat-dialog-close]="data.task" cdkFocusInitial color="primary">
+      {{ data.submitBtnCaption }}
+    </button>
+  </div>
+</form>
