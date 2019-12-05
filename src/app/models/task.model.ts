@@ -4,8 +4,8 @@ export interface ITask {
     taskId: number;
     mainTaskNo: number;
     subTaskNo: number;
-    assignedDate: Date;
-    doneDate: Date;
+    assignedDate: string;
+    doneDate: string;
     type: TaskType;
     status: TaskStatus;
     desc: string;

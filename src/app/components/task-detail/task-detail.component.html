@@ -1,4 +1,4 @@
-<form class="example-form" [formGroup]="form">
+<form class="example-form" [formGroup]="taskForm" (submit)=onFormSubmit()>
   <h1 mat-dialog-title>Add a new task</h1>
   <div mat-dialog-content class="mat-form">
     <table class="example-full-width" cellspacing="2">
@@ -17,14 +17,14 @@
         </td>
       </tr>
       <tr>
-        <td>
+        <td colspan="2">
           <mat-form-field class="example-full-width">
               <input matInput [matDatepicker]="assignedPicker" placeholder="َAssign Date" formControlName="assignDate">
               <mat-datepicker-toggle matSuffix [for]="assignedPicker"></mat-datepicker-toggle>
               <mat-datepicker #assignedPicker></mat-datepicker>
             </mat-form-field>
         </td>
-        <td>
+        <td *ngIf="data.operationType !== operationType.ADD">
           <mat-form-field class="example-full-width">
             <input matInput [matDatepicker]="DonePicker" placeholder="َDone Date" formControlName="doneDate">
             <mat-datepicker-toggle matSuffix [for]="DonePicker"></mat-datepicker-toggle>
@@ -63,10 +63,12 @@
       </tr>
     </table>
   </div>
-  <div mat-dialog-actions class="btn-container">
-    <button mat-raised-button (click)="onNoClick()" color="accent">Cancel</button>
-    <button mat-raised-button [mat-dialog-close]="data.task" cdkFocusInitial color="primary">
-      {{ data.submitBtnCaption }}
-    </button>
+  <div mat-dialog-actions>
+    <div class="btn-container">
+      <button mat-raised-button type="button" (click)="onCancelClick()" color="accent">Cancel</button>
+      <button mat-raised-button type="submit" [mat-dialog-close]="form" cdkFocusInitial color="primary">
+        {{ data.submitBtnCaption }}
+      </button>
+  </div>
   </div>
 </form>

@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material';
 import { ITask } from '../../models/task.model';
 import { TaskDetailComponent } from '../task-detail/task-detail.component';
 import { DetailPageData } from 'src/app/models/detail-page-data.model';
+import { OperationType } from 'src/app/models/task-enums';
 
 @Component({
   selector: 'app-toolbar',
@@ -16,19 +17,20 @@ export class ToolbarComponent {
 
   openAddTaskDialog(): void {
     const today = new Date();
+    const tadayDate = today.getDay() + '.' + today.getMonth() + '.' + today.getFullYear();
 
     const task: ITask = {
       taskId: null,
       mainTaskNo: null,
       subTaskNo: null,
-      assignedDate: today,
-      doneDate: today,
+      assignedDate: (new Date()).toISOString(),
+      doneDate: null,
       type: null,
       status: null,
       desc: null
     };
 
-    const detailPageData: DetailPageData = { task, submitBtnCaption: 'Add Task', datesDisabled: true };
+    const detailPageData: DetailPageData = { task, submitBtnCaption: 'Add Task', operationType: OperationType.ADD };
 
     const dialogRef = this.dialog.open(TaskDetailComponent, {
       width: '550px',

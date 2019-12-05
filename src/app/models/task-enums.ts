@@ -17,3 +17,10 @@ export enum TaskType {
     DEPLOYMENT = "Deployment",
     DOCUMENTATION = "Documentation"
 }
+
+export enum OperationType {
+    ADD = 'add',
+    REMOVE = 'remove',
+    UPDATE = 'update',
+    DISPLAY = 'display'
+}
