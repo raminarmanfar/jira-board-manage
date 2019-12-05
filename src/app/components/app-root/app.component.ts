@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ITask } from 'src/app/models/task.model';
-import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
