@@ -1,54 +1,24 @@
 {
   "tasks": [
     {
-      "mainTaskNo": "2254",
-      "subTaskNo": "2340",
-      "assignDate": "5.11.2019",
-      "doneDate": null,
-      "type": "1th Review",
-      "status": "In Progress",
-      "desc": "Test description here.",
-      "id": 1
-    },
-    {
-      "mainTaskNo": "3620",
-      "subTaskNo": "3721",
-      "assignDate": "5.11.2019",
-      "doneDate": null,
-      "type": "Development",
-      "status": "Blocked",
-      "desc": "second test.",
-      "id": 2
-    },
-    {
-      "mainTaskNo": "1247",
-      "subTaskNo": null,
-      "assignDate": "5.11.2019",
-      "doneDate": null,
-      "type": null,
-      "status": null,
-      "desc": null,
-      "id": 3
-    },
-    {
-      "mainTaskNo": "1234",
-      "subTaskNo": "6547",
-      "assignDate": "5.11.2019",
-      "doneDate": null,
-      "type": "2nd Review",
-      "status": "Blocked",
-      "desc": "test 3",
-      "id": 4
-    },
-    {
       "mainTaskNo": "1111",
       "subTaskNo": "2222",
       "assignDate": "5.11.2019",
       "doneDate": null,
-      "type": "2nd Review",
-      "status": "Blocked",
-      "desc": "33333333333454444444",
-      "id": 5
+      "type": "1th Review",
+      "status": "In Progress",
+      "desc": "333333",
+      "id": 1
+    },
+    {
+      "mainTaskNo": "2222",
+      "subTaskNo": "3333",
+      "assignDate": "5.11.2019",
+      "doneDate": null,
+      "type": "Development",
+      "status": "Not Started",
+      "desc": "test",
+      "id": 2
     }
   ]
 }

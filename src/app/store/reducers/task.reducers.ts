@@ -9,12 +9,20 @@ export const taskReducers = (
         case ETaskActions.GetTaskSuccess:
             return {
                 ...state,
-                selectedTask: action.payload
+                selectedTask: action.payload,
+                inProgress: false
             };
         case ETaskActions.GetTasksSuccess:
             return {
                 ...state,
-                tasks: action.payload
+                tasks: action.payload,
+                inProgress: false
+            }
+        case ETaskActions.AddTaskSuccess:
+            return {
+                ...state,
+                ...state.tasks.concat(action.payload),
+                inProgress: false
             }
         default: return state;
     }

@@ -5,7 +5,7 @@ export interface IAppState {
 }
 
 export const initialAppState: IAppState = {
-    tasks: initialTaskState
+    tasks: initialTaskState,
 };
 
 export function getInitialState(): IAppState {
