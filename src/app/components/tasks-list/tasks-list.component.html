@@ -1,4 +1,33 @@
-<h4>List here...</h4>
-
-<button (click)="onClick()">Click Me</button>
-<p>{{ tasks | json }}</p>
+<div class="table-container">
+    <table mat-table [dataSource]="tasksList" multiTemplateDataRows class="mat-elevation-z8">
+        <ng-container *ngFor="let column of columnsToDisplay" matColumnDef="{{ column }}">
+            <th mat-header-cell *matHeaderCellDef> {{ column }} </th>
+            <td mat-cell *matCellDef="let element"> {{ element[column] }} </td>
+        </ng-container>
+        
+        <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+        <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+                <div class="example-element-detail"
+                        [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                    <div class="example-element-diagram">
+                    <div class="example-element-mainTaskNo"> {{ element.mainTaskNo }} </div>
+                    <div class="example-element-subTaskNo"> {{ element.subTaskNo }} </div>
+                    <div class="example-element-name"> {{ element.assignDate }} </div>
+                    <div class="example-element-weight"> {{ element.type }} </div>
+                    <div class="example-element-weight"> {{ element.status }} </div>
+                    </div>
+                    <div class="example-element-description">{{ element.desc }}</div>
+                </div>
+            </td>
+        </ng-container>
+        
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
+            class="example-element-row"
+            [class.example-expanded-row]="expandedElement === element"
+            (click)="expandedElement = expandedElement === element ? null : element">
+        </tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+    </table>
+</div>

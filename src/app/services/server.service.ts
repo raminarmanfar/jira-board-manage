@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 export class ServerService {
 
   private tasksUrl = '/tasks';
+
   constructor(private http: HttpClient) { }
 
   getAllTasks(): Observable<ITask[]> {
@@ -17,6 +18,6 @@ export class ServerService {
 
   addNewTask(task: ITask): Observable<ITask> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.http.post<ITask>(this.tasksUrl, task, { headers: headers }).pipe();
+    return this.http.post<ITask>(this.tasksUrl, task, { headers: headers });
   }
 }

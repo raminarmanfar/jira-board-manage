@@ -13,10 +13,10 @@ export class AppComponent {
 
   addTask(task: ITask) {
     if (task) {
-      this.serverService.addNewTask(task).subscribe(res => {
-        console.log('>>>', res);
-      }, err => console.error('>>> err:', err), () => console.log( 'completed...'));
-      
+      this.serverService.addNewTask(task).subscribe(
+        res => console.log('>>>', res),
+        err => console.error('>>> err:', err)
+      );
     }
   }
 }

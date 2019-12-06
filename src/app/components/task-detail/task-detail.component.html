@@ -1,4 +1,4 @@
-<ng-form class="example-form" [formGroup]="taskForm" (ngSubmit)="onFormSubmit()" [ngFormOptions]="{updateOn: 'blur'}">
+<form class="example-form" [formGroup]="taskForm" (submit)="onFormSubmit()">
   <h1 mat-dialog-title>Add a new task</h1>
   <div mat-dialog-content class="mat-form">
     <table class="example-full-width" cellspacing="2">
@@ -66,9 +66,9 @@
   <div mat-dialog-actions>
     <div class="btn-container">
       <button mat-raised-button type="button" (click)="onCancelClick()" color="accent">Cancel</button>
-      <button mat-raised-button type="button" (click)="onFormSubmit()" cdkFocusInitial color="primary">
+      <button mat-raised-button type="submit" cdkFocusInitial color="primary">
         {{ data.submitBtnCaption }}
       </button>
   </div>
   </div>
-</ng-form>
+</form>
