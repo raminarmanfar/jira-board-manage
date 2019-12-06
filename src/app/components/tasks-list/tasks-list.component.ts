@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import { ITask } from '../../models/task.model';
-import { ServerService } from '../../services/server.service';
-
+import { Store, select } from '@ngrx/store';
+import { IAppState } from '../../store/state/app.state';
+import { selectTaskList } from '../../store/selectors/task.selectors';
+import { GetTasks } from '../../store/actions/task.actions';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-tasks-list',
   templateUrl: './tasks-list.component.html',
@@ -16,6 +19,13 @@ import { ServerService } from '../../services/server.service';
   ],
 })
 export class TasksListComponent {
-  tasksList: ITask[];
   columnsToDisplay: string[] = ['mainTaskNo', 'subTaskNo', 'assignDate', 'type', 'status'];
+  tasks$: Observable<ITask[]> = this._store.pipe(select(selectTaskList));
+
+  constructor(private _store: Store<IAppState>) {}
+
+  ngOnInit() {
+    this._store.dispatch(new GetTasks)
+  }
+
 }

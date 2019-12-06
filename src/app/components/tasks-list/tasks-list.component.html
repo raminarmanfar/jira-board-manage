@@ -1,5 +1,5 @@
 <div class="table-container">
-    <table mat-table [dataSource]="tasksList" multiTemplateDataRows class="mat-elevation-z8">
+    <table mat-table [dataSource]="tasks$ | async" multiTemplateDataRows class="mat-elevation-z8">
         <ng-container *ngFor="let column of columnsToDisplay" matColumnDef="{{ column }}">
             <th mat-header-cell *matHeaderCellDef> {{ column }} </th>
             <td mat-cell *matCellDef="let element"> {{ element[column] }} </td>

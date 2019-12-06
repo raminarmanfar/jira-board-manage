@@ -5,10 +5,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppMaterialsModule } from './app-materials';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+
+import { appReducers } from './store/reducers/app.reducers';
+import { TaskEffects } from './store/effects/task.effects';
+import { environment } from '../environments/environment';
 
 import { EnumToArrayPipe } from './enum-to-array.pipe';
 import { AutoFocusDirective } from './auto-focus.directive';
-import { ServerService } from './services/server.service';
+import { TaskService } from './services/task.service';
 
 import { AppComponent } from './components/app-root/app.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
@@ -33,10 +40,13 @@ import { TaskDetailComponent } from './components/task-detail/task-detail.compon
     AppRoutingModule,
     BrowserAnimationsModule,
     AppMaterialsModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forRoot(appReducers),
+    EffectsModule.forRoot([TaskEffects]),
+    !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
   providers: [
-    ServerService
+    TaskService
   ],
   bootstrap: [AppComponent],
   entryComponents: [TaskDetailComponent]

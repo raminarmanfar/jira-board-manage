@@ -6,11 +6,15 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class ServerService {
+export class TaskService {
 
   private tasksUrl = '/tasks';
 
   constructor(private http: HttpClient) { }
+
+  getTaskById(id: number): Observable<ITask> {
+    return this.http.get<ITask>(this.tasksUrl + '/:' + id);
+  }
 
   getAllTasks(): Observable<ITask[]> {
     return this.http.get<ITask[]>(this.tasksUrl);
