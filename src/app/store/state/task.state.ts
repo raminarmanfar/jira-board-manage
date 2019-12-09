@@ -1,13 +1,13 @@
 import { ITask } from '../../models/task.model';
 
 export interface ITaskState {
-    tasks: ITask[];
+    tasksList: ITask[];
     selectedTask: ITask;
-    inProgress: boolean
+    loading: boolean;
 }
 
 export const initialTaskState: ITaskState = {
-    tasks: [],
+    tasksList: [],
     selectedTask: null,
-    inProgress: false
+    loading: false
 };

@@ -1,11 +1,11 @@
 import { ITaskState, initialTaskState } from './task.state';
 
 export interface IAppState {
-    tasks: ITaskState
+    tasksState: ITaskState
 }
 
 export const initialAppState: IAppState = {
-    tasks: initialTaskState,
+    tasksState: initialTaskState,
 };
 
 export function getInitialState(): IAppState {

@@ -38,11 +38,7 @@ export class TaskEffects {
     addTask$ = this._actions$.pipe(
         ofType<AddTask>(ETaskActions.AddTask),
         map(action => action.payload),
-        switchMap((payload) => {
-            this._taskService.addNewTask(payload).pipe(
-                map(s => new AddTaskSuccess(s))
-            )
-
-        })
+        switchMap((payload: ITask) => this._taskService.addNewTask(payload)),
+        map((addedTask: ITask) => new AddTaskSuccess(addedTask))
     );
 }
