@@ -15,21 +15,30 @@ export class TaskDetailComponent {
   public get operationType() { return OperationType; }
 
   taskForm: FormGroup;
+  submitBtnCaption: string;
 
   constructor(
-    fb: FormBuilder,
-    public dialogRef: MatDialogRef<TaskDetailComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DetailPageData) {
-      this.taskForm = fb.group({
-        mainTaskNo: new FormControl({ value: this.data.task.mainTaskNo, disabled: false }),
-        subTaskNo: new FormControl({ value: this.data.task.subTaskNo, disabled: false }),
-        assignDate: new FormControl({ value: this.data.task.assignDate, disabled: this.data.operationType === OperationType.ADD }),
-        doneDate: new FormControl({ value: this.data.task.doneDate, disabled: this.data.operationType === OperationType.ADD }),
-        type: new FormControl({ value: this.data.task.type, disabled: false }),
-        status: new FormControl({ value: this.data.task.status, disabled: false }),
-        desc: new FormControl({ value: this.data.task.desc, disabled: false })
-      });
+    private fb: FormBuilder,
+    private dialogRef: MatDialogRef<TaskDetailComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DetailPageData
+  ) { }
+
+  ngOnInit(): void {
+    switch (this.data.operationType) {
+      case OperationType.ADD: this.submitBtnCaption = 'Add Task'; break;
+      case OperationType.UPDATE: this.submitBtnCaption = 'Update Task'; break;
+      default: this.submitBtnCaption = 'Nothing';
     }
+    this.taskForm = this.fb.group({
+      mainTaskNo: new FormControl({ value: this.data.task.mainTaskNo, disabled: false }),
+      subTaskNo: new FormControl({ value: this.data.task.subTaskNo, disabled: false }),
+      assignDate: new FormControl({ value: this.data.task.assignDate, disabled: this.data.operationType === OperationType.ADD }),
+      doneDate: new FormControl({ value: this.data.task.doneDate, disabled: this.data.operationType === OperationType.ADD }),
+      type: new FormControl({ value: this.data.task.type, disabled: false }),
+      status: new FormControl({ value: this.data.task.status, disabled: false }),
+      desc: new FormControl({ value: this.data.task.desc, disabled: false })
+    });
+  }
 
   onCancelClick(): void {
     this.dialogRef.close(null);

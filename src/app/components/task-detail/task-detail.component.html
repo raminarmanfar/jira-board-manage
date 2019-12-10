@@ -5,26 +5,36 @@
       <tr>
         <td class="col">
           <mat-form-field class="example-full-width">
-            <input matInput #mainTaskNo maxlength="4" placeholder="Main Task No" formControlName="mainTaskNo" appAutoFocus/>
+            <input matInput #mainTaskNo maxlength="4" placeholder="Main Task No" formControlName="mainTaskNo"
+              appAutoFocus />
             <mat-hint align="end">{{ mainTaskNo.value.length }} / 4</mat-hint>
           </mat-form-field>
         </td>
         <td>
           <mat-form-field class="example-full-width">
-            <input matInput #subTaskNo maxlength="4" placeholder="Sub Task No" formControlName="subTaskNo"/>
+            <input matInput #subTaskNo maxlength="4" placeholder="Sub Task No" formControlName="subTaskNo" />
             <mat-hint align="end">{{ subTaskNo.value.length }} / 4</mat-hint>
           </mat-form-field>
         </td>
       </tr>
-      <tr>
+      <tr *ngIf="data.operationType === operationType.ADD">
         <td colspan="2">
           <mat-form-field class="example-full-width">
-              <input matInput [matDatepicker]="assignDatePicker" placeholder="َAssign Date" formControlName="assignDate">
-              <mat-datepicker-toggle matSuffix [for]="assignDatePicker"></mat-datepicker-toggle>
-              <mat-datepicker #assignDatePicker></mat-datepicker>
-            </mat-form-field>
+            <input matInput [matDatepicker]="assignDatePicker" placeholder="َAssign Date" formControlName="assignDate">
+            <mat-datepicker-toggle matSuffix [for]="assignDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #assignDatePicker></mat-datepicker>
+          </mat-form-field>
         </td>
-        <td *ngIf="data.operationType !== operationType.ADD">
+      </tr>
+      <tr *ngIf="data.operationType !== operationType.ADD">
+        <td>
+          <mat-form-field class="example-full-width">
+            <input matInput [matDatepicker]="assignDatePicker" placeholder="َAssign Date" formControlName="assignDate">
+            <mat-datepicker-toggle matSuffix [for]="assignDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #assignDatePicker></mat-datepicker>
+          </mat-form-field>
+        </td>
+        <td>
           <mat-form-field class="example-full-width">
             <input matInput [matDatepicker]="DonePicker" placeholder="َDone Date" formControlName="doneDate">
             <mat-datepicker-toggle matSuffix [for]="DonePicker"></mat-datepicker-toggle>
@@ -35,13 +45,13 @@
       <tr>
         <td>
           <mat-form-field class="example-full-width">
-              <mat-label>Task Type</mat-label>
-              <mat-select formControlName="type">
-                <mat-option *ngFor="let type of taskTypes | enumToArray" [value]="type">
-                  {{ type }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+            <mat-label>Task Type</mat-label>
+            <mat-select formControlName="type">
+              <mat-option *ngFor="let type of taskTypes | enumToArray" [value]="type">
+                {{ type }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </td>
         <td>
           <mat-form-field class="example-full-width">
@@ -58,7 +68,7 @@
         <td colspan="2">
           <mat-form-field class="example-full-width">
             <textarea matInput placeholder="Description" formControlName="desc"></textarea>
-          </mat-form-field>      
+          </mat-form-field>
         </td>
       </tr>
     </table>
@@ -67,8 +77,8 @@
     <div class="btn-container">
       <button mat-raised-button type="button" (click)="onCancelClick()" color="accent">Cancel</button>
       <button mat-raised-button type="submit" cdkFocusInitial color="primary">
-        {{ data.submitBtnCaption }}
+        {{ submitBtnCaption }}
       </button>
-  </div>
+    </div>
   </div>
 </form>

@@ -10,7 +10,9 @@ import { GetTasks, DeleteTask } from '../../store/actions/task.actions';
 import { OperationDetail } from '../../models/operation-detail.model';
 import { OperationType } from '../../models/task-enums';
 import { ConfirmationPopupComponent } from '../../confirmation-popup/confirmation-popup.component';
-import { ConfirmationData } from 'src/app/models/confirmation-data.mode';
+import { TaskDetailComponent } from '../task-detail/task-detail.component';
+import { ConfirmationData } from '../../models/confirmation-data.mode';
+import { DetailPageData } from '../../models/detail-page-data.model';
 @Component({
   selector: 'app-tasks-list',
   templateUrl: './tasks-list.component.html',
@@ -56,6 +58,7 @@ export class TasksListComponent {
   onOperation(operationDetail: OperationDetail) {
     switch (operationDetail.operationType) {
       case OperationType.UPDATE:
+        this.raiseUpdatePopup();
         break;
       case OperationType.DELETE:
         this.raiseConfirmPopup().subscribe(res => {
@@ -65,6 +68,17 @@ export class TasksListComponent {
         });
         break;
     }
+  }
+
+  raiseUpdatePopup() {
+    const task: ITask = null;
+    const detailPageData: DetailPageData = { task, operationType: OperationType.UPDATE };
+
+    const dialogRef = this.dialog.open(TaskDetailComponent, {
+      width: '550px',
+      data: detailPageData
+    });
+    return dialogRef.afterClosed();
   }
 
   raiseConfirmPopup(): Observable<boolean> {
@@ -78,7 +92,6 @@ export class TasksListComponent {
       width: '450px',
       data: confirmationData
     });
-
     return dialogRef.afterClosed();
   }
 }

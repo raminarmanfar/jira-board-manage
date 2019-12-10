@@ -27,7 +27,7 @@ export class ToolbarComponent {
       desc: null
     };
 
-    const detailPageData: DetailPageData = { task, submitBtnCaption: 'Add Task', operationType: OperationType.ADD };
+    const detailPageData: DetailPageData = { task, operationType: OperationType.ADD };
 
     const dialogRef = this.dialog.open(TaskDetailComponent, {
       width: '550px',
