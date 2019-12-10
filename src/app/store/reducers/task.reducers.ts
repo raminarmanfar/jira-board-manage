@@ -12,6 +12,13 @@ export const taskReducers = (
                 selectedTask: action.payload,
                 loading: false
             };
+        case ETaskActions.GetTasks: 
+        case ETaskActions.AddTask: 
+        case ETaskActions.DeleteTask:
+            return {
+                ...state,
+                loading: true
+            }
         case ETaskActions.GetTasksSuccess:
             return {
                 ...state,
@@ -22,6 +29,12 @@ export const taskReducers = (
             return {
                 ...state,
                 tasksList: state.tasksList.concat(action.payload),
+                loading: false
+            }
+        case ETaskActions.DELETETaskSuccess:
+            return {
+                ...state,
+                tasksList: state.tasksList.filter(item => item.id !== action.payload),
                 loading: false
             }
         default: return state;

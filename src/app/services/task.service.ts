@@ -24,4 +24,9 @@ export class TaskService {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this.http.post<ITask>(this.tasksUrl, task, { headers: headers });
   }
+
+  deleteTask(taskId: number): Observable<ITask> {
+    return this.http.delete<ITask>(this.tasksUrl + '/' + taskId);
+  }
+
 }

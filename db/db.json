@@ -3,25 +3,12 @@
     {
       "mainTaskNo": "1111",
       "subTaskNo": "2222",
-      "assignDate": "2019-12-09T12:40:19.663Z",
+      "assignDate": "2019-12-10T14:44:56.690Z",
       "doneDate": null,
       "type": "Development",
       "status": "In Progress",
-      "desc": "test 1",
+      "desc": "test",
       "id": 1
-    },
-    {
-      "mainTaskNo": "5487",
-      "subTaskNo": "3654",
-      "assignDate": "2019-12-09T12:47:46.615Z",
-      "doneDate": null,
-      "type": "2nd Review",
-      "status": "In Test",
-      "desc": "test 2",
-      "id": 2
-    },
-    {
-      "id": 3
     }
   ]
 }

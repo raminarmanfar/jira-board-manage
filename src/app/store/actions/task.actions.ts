@@ -7,7 +7,9 @@ export enum ETaskActions {
     GetTasks = '[Task] Get Tasks',
     GetTasksSuccess = '[Task] Get Tasks Success',
     AddTask = '[Task] Add Task',
-    AddTaskSuccess = '[Task] Add Task Success'
+    AddTaskSuccess = '[Task] Add Task Success',
+    DeleteTask = '[Task] Delete Task',
+    DELETETaskSuccess = '[Task] Delete Task Success'
 }
 
 export class GetTask implements Action {
@@ -39,10 +41,22 @@ export class AddTaskSuccess implements Action {
     constructor(public payload: ITask) {}
 }
 
-export type TaskActions = 
-    | GetTask 
+export class DeleteTask implements Action {
+    public readonly type = ETaskActions.DeleteTask;
+    constructor(public payload: number) {}
+}
+
+export class DeleteTaskSuccess implements Action {
+    public readonly type = ETaskActions.DELETETaskSuccess;
+    constructor(public payload: number) {}
+}
+
+export type TaskActions 
+    = GetTask 
     | GetTaskSuccess 
     | GetTasks 
     | GetTasksSuccess
     | AddTask
-    | AddTaskSuccess;
+    | AddTaskSuccess
+    | DeleteTask
+    | DeleteTaskSuccess;

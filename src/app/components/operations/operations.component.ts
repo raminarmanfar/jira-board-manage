@@ -1,5 +1,6 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
-import { OperationDetail, OperationType } from '../../models/operation-detail.model';
+import { OperationDetail } from '../../models/operation-detail.model';
+import { OperationType } from '../../models/task-enums';
 
 @Component({
   selector: 'app-operations',

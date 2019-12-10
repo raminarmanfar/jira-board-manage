@@ -20,7 +20,8 @@ export enum TaskType {
 
 export enum OperationType {
     ADD = 'add',
-    REMOVE = 'remove',
     UPDATE = 'update',
-    DISPLAY = 'display'
+    DELETE = 'delete',
+    DONE = 'done',
+    BLOCK = 'block',
 }

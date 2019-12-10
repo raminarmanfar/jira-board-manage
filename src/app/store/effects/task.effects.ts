@@ -1,12 +1,12 @@
 import { Injectable } from "@angular/core";
 import { Store, select } from '@ngrx/store';
 import { Effect, Actions, ofType } from '@ngrx/effects';
-import { of } from 'rxjs';
+import { of, Observable, combineLatest } from 'rxjs';
 import { switchMap, map, withLatestFrom, mergeMap } from 'rxjs/operators';
 import { TaskService } from '../../services/task.service';
 import { IAppState } from '../state/app.state';
 import { selectTaskList } from '../selectors/task.selectors';
-import { GetTasks, ETaskActions, GetTask, GetTaskSuccess, GetTasksSuccess, AddTaskSuccess, AddTask } from '../actions/task.actions';
+import { GetTasks, ETaskActions, GetTask, GetTaskSuccess, GetTasksSuccess, AddTaskSuccess, AddTask, DeleteTaskSuccess, DeleteTask } from '../actions/task.actions';
 import { ITask } from 'src/app/models/task.model';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class TaskEffects {
         private _taskService: TaskService,
         private _actions$: Actions,
         private _store: Store<IAppState>
-    ) {}
+    ) { }
     @Effect()
     getTask$ = this._actions$.pipe(
         ofType<GetTask>(ETaskActions.GetTask),
@@ -31,7 +31,7 @@ export class TaskEffects {
     getTasks$ = this._actions$.pipe(
         ofType<GetTasks>(ETaskActions.GetTasks),
         switchMap(() => this._taskService.getAllTasks()),
-        switchMap((taskHttp: ITask[]) => of(new GetTasksSuccess(taskHttp)))
+        switchMap((tasks: ITask[]) => of(new GetTasksSuccess(tasks)))
     );
 
     @Effect()
@@ -40,5 +40,14 @@ export class TaskEffects {
         map(action => action.payload),
         switchMap((payload: ITask) => this._taskService.addNewTask(payload)),
         map((addedTask: ITask) => new AddTaskSuccess(addedTask))
+    );
+
+    @Effect()
+    deleteTask$ = this._actions$.pipe(
+        ofType<DeleteTask>(ETaskActions.DeleteTask),
+        map(action => action.payload),
+        mergeMap(taskId => this._taskService.deleteTask(taskId).pipe(
+            map(() => new DeleteTaskSuccess(taskId))
+        )),
     );
 }

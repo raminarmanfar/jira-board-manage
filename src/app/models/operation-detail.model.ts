@@ -1,10 +1,4 @@
-export enum OperationType {
-    ADD = 'add',
-    UPDATE = 'update',
-    DELETE = 'delete',
-    DONE = 'done',
-    BLOCK = 'block',
-}
+import { OperationType } from './task-enums';
 
 export interface OperationDetail {
     operationType: OperationType;

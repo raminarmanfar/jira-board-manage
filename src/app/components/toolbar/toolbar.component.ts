@@ -17,7 +17,6 @@ export class ToolbarComponent {
 
   openAddTaskDialog(): void {
     const today = new Date();
-
     const task: ITask = {
       mainTaskNo: null,
       subTaskNo: null,

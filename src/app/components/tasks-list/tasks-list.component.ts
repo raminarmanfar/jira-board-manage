@@ -1,13 +1,16 @@
 import { Component, ViewChild } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { ITask } from '../../models/task.model';
+import { MatSort, MatTableDataSource, MatDialog } from '@angular/material';
 import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { ITask } from '../../models/task.model';
 import { IAppState } from '../../store/state/app.state';
 import { selectTaskList } from '../../store/selectors/task.selectors';
-import { GetTasks } from '../../store/actions/task.actions';
-import { Observable } from 'rxjs';
-import { MatSort, MatTableDataSource } from '@angular/material';
-import { OperationDetail, OperationType } from 'src/app/models/operation-detail.model';
+import { GetTasks, DeleteTask } from '../../store/actions/task.actions';
+import { OperationDetail } from '../../models/operation-detail.model';
+import { OperationType } from '../../models/task-enums';
+import { ConfirmationPopupComponent } from '../../confirmation-popup/confirmation-popup.component';
+import { ConfirmationData } from 'src/app/models/confirmation-data.mode';
 @Component({
   selector: 'app-tasks-list',
   templateUrl: './tasks-list.component.html',
@@ -28,7 +31,7 @@ export class TasksListComponent {
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private _store: Store<IAppState>) { }
+  constructor(private _store: Store<IAppState>, public dialog: MatDialog) { }
 
   ngOnInit() {
     this._store.dispatch(new GetTasks);
@@ -54,6 +57,28 @@ export class TasksListComponent {
     switch (operationDetail.operationType) {
       case OperationType.UPDATE:
         break;
+      case OperationType.DELETE:
+        this.raiseConfirmPopup().subscribe(res => {
+          if (res) {
+            this._store.dispatch(new DeleteTask(operationDetail.taskId));
+          }
+        });
+        break;
     }
+  }
+
+  raiseConfirmPopup(): Observable<boolean> {
+    const confirmationData: ConfirmationData = {
+      title: 'Deleting selected task from the list, are you sure?',
+      confirmBtnCaption: 'Yes',
+      rejectBtnCaption: 'No'
+    };
+
+    const dialogRef = this.dialog.open(ConfirmationPopupComponent, {
+      width: '450px',
+      data: confirmationData
+    });
+
+    return dialogRef.afterClosed();
   }
 }

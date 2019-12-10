@@ -23,6 +23,7 @@ import { TasksListComponent } from './components/tasks-list/tasks-list.component
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { TaskDetailComponent } from './components/task-detail/task-detail.component';
 import { OperationsComponent } from './components/operations/operations.component';
+import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { OperationsComponent } from './components/operations/operations.componen
     TaskDetailComponent,
     EnumToArrayPipe,
     AutoFocusDirective,
-    OperationsComponent
+    OperationsComponent,
+    ConfirmationPopupComponent
   ],
   imports: [
     FormsModule,
@@ -51,6 +53,6 @@ import { OperationsComponent } from './components/operations/operations.componen
     TaskService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [TaskDetailComponent]
+  entryComponents: [TaskDetailComponent, ConfirmationPopupComponent]
 })
 export class AppModule { }

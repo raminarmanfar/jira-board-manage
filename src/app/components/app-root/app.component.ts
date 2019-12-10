@@ -14,6 +14,8 @@ export class AppComponent {
   constructor(private _store: Store<IAppState>) {}
 
   addTask(task: ITask) {
-    this._store.dispatch(new AddTask(task));
+    if (task) {
+      this._store.dispatch(new AddTask(task));
+    }
   }
 }
