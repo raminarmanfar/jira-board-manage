@@ -1,0 +1,14 @@
+<div class="example-button-row">
+    <button mat-icon-button color="primary" (click)="doOperation($event, opType.UPDATE)" matTooltip="Update task info" [matTooltipPosition]="'above'" matTooltipClass="tooltip">
+        <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button color="warn" (click)="doOperation($event, opType.DELETE)" matTooltip="Delete the task" [matTooltipPosition]="'above'" matTooltipClass="tooltip">
+        <mat-icon>delete</mat-icon>
+    </button>
+    <button mat-icon-button color="accent" (click)="doOperation($event, opType.DONE)" matTooltip="Done the task" [matTooltipPosition]="'above'" matTooltipClass="tooltip">
+        <mat-icon>done</mat-icon>
+    </button>
+    <button mat-icon-button color="accent" (click)="doOperation($event, opType.BLOCK)" matTooltip="Block the task" [matTooltipPosition]="'above'" matTooltipClass="tooltip">
+        <mat-icon>block</mat-icon>
+    </button>
+</div>

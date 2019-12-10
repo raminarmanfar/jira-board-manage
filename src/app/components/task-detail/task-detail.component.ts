@@ -23,7 +23,7 @@ export class TaskDetailComponent {
       this.taskForm = fb.group({
         mainTaskNo: new FormControl({ value: this.data.task.mainTaskNo, disabled: false }),
         subTaskNo: new FormControl({ value: this.data.task.subTaskNo, disabled: false }),
-        assignDate: new FormControl({ value: this.data.task.assignedDate, disabled: this.data.operationType === OperationType.ADD }),
+        assignDate: new FormControl({ value: this.data.task.assignDate, disabled: this.data.operationType === OperationType.ADD }),
         doneDate: new FormControl({ value: this.data.task.doneDate, disabled: this.data.operationType === OperationType.ADD }),
         type: new FormControl({ value: this.data.task.type, disabled: false }),
         status: new FormControl({ value: this.data.task.status, disabled: false }),

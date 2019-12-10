@@ -7,7 +7,7 @@ tr.example-detail-row {
 }
 
 tr.example-element-row:not(.example-expanded-row):hover {
-  background: lightgreen;
+  background: rgb(251, 255, 218);
 }
 
 tr.example-element-row:not(.example-expanded-row):active {
@@ -53,4 +53,8 @@ tr.example-element-row:not(.example-expanded-row):active {
 .mat-form-field {
   font-size: 14px;
   width: 100%;
+}
+
+.tbl-header {
+  cursor: default;
 }

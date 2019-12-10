@@ -22,6 +22,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { TasksListComponent } from './components/tasks-list/tasks-list.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { TaskDetailComponent } from './components/task-detail/task-detail.component';
+import { OperationsComponent } from './components/operations/operations.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { TaskDetailComponent } from './components/task-detail/task-detail.compon
     ToolbarComponent,
     TaskDetailComponent,
     EnumToArrayPipe,
-    AutoFocusDirective
+    AutoFocusDirective,
+    OperationsComponent
   ],
   imports: [
     FormsModule,

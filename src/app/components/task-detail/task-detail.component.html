@@ -19,9 +19,9 @@
       <tr>
         <td colspan="2">
           <mat-form-field class="example-full-width">
-              <input matInput [matDatepicker]="assignedPicker" placeholder="َAssign Date" formControlName="assignDate">
-              <mat-datepicker-toggle matSuffix [for]="assignedPicker"></mat-datepicker-toggle>
-              <mat-datepicker #assignedPicker></mat-datepicker>
+              <input matInput [matDatepicker]="assignDatePicker" placeholder="َAssign Date" formControlName="assignDate">
+              <mat-datepicker-toggle matSuffix [for]="assignDatePicker"></mat-datepicker-toggle>
+              <mat-datepicker #assignDatePicker></mat-datepicker>
             </mat-form-field>
         </td>
         <td *ngIf="data.operationType !== operationType.ADD">

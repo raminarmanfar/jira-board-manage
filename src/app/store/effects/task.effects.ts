@@ -22,7 +22,7 @@ export class TaskEffects {
         map(action => action.payload),
         withLatestFrom(this._store.pipe(select(selectTaskList))),
         switchMap(([id, tasks]) => {
-            const selectedTask = tasks.filter(task => task.taskId === +id)[0];
+            const selectedTask = tasks.filter(task => task.mainTaskNo === +id)[0];
             return of(new GetTaskSuccess(selectedTask));
         })
     );

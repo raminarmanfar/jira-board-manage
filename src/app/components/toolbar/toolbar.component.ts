@@ -17,13 +17,11 @@ export class ToolbarComponent {
 
   openAddTaskDialog(): void {
     const today = new Date();
-    const tadayDate = today.getDay() + '.' + today.getMonth() + '.' + today.getFullYear();
 
     const task: ITask = {
-      taskId: null,
       mainTaskNo: null,
       subTaskNo: null,
-      assignedDate: tadayDate,
+      assignDate: today,
       doneDate: null,
       type: null,
       status: null,

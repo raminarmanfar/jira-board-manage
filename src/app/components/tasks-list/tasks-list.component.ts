@@ -7,6 +7,7 @@ import { selectTaskList } from '../../store/selectors/task.selectors';
 import { GetTasks } from '../../store/actions/task.actions';
 import { Observable } from 'rxjs';
 import { MatSort, MatTableDataSource } from '@angular/material';
+import { OperationDetail, OperationType } from 'src/app/models/operation-detail.model';
 @Component({
   selector: 'app-tasks-list',
   templateUrl: './tasks-list.component.html',
@@ -20,7 +21,8 @@ import { MatSort, MatTableDataSource } from '@angular/material';
   ],
 })
 export class TasksListComponent {
-  columnsToDisplay: string[] = ['mainTaskNo', 'subTaskNo', 'assignDate', 'type', 'status'];
+  columnsToDisplay: string[] = ['mainTaskNo', 'subTaskNo', 'assignDate', 'type', 'status', 'id'];
+  colsDisplayValues: string[] = ['Main Task No', 'Sub Task No', 'Assign Date', 'Type', 'Status', 'Operations'];
   tasks$: Observable<ITask[]> = this._store.pipe(select(selectTaskList));
   dataSource: MatTableDataSource<ITask>;
 
@@ -30,8 +32,8 @@ export class TasksListComponent {
 
   ngOnInit() {
     this._store.dispatch(new GetTasks);
-    this.tasks$.subscribe(res => {
-      this.dataSource = new MatTableDataSource<ITask>(res);
+    this.tasks$.subscribe(tasks => {
+      this.dataSource = new MatTableDataSource<ITask>(tasks);
       this.dataSource.sort = this.sort;
     });
   }
@@ -41,6 +43,17 @@ export class TasksListComponent {
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
+    }
+  }
+
+  isIdCol(column: string): boolean {
+    return !['mainTaskNo', 'subTaskNo', 'type', 'status'].includes(column);
+  }
+
+  onOperation(operationDetail: OperationDetail) {
+    switch (operationDetail.operationType) {
+      case OperationType.UPDATE:
+        break;
     }
   }
 }

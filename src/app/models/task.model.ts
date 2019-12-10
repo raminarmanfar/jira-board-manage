@@ -1,11 +1,11 @@
 import { TaskType, TaskStatus } from './task-enums';
 
 export interface ITask {
-    taskId: number;
+    id?: number;
     mainTaskNo: number;
     subTaskNo: number;
-    assignedDate: string;
-    doneDate: string;
+    assignDate: Date;
+    doneDate: Date;
     type: TaskType;
     status: TaskStatus;
     desc: string;
