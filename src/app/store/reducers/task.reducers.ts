@@ -6,19 +6,20 @@ export const taskReducers = (
     action: TaskActions
 ): ITaskState => {
     switch (action.type) {
+        case ETaskActions.GetTask:
+        case ETaskActions.GetTasks:
+        case ETaskActions.AddTask:
+        case ETaskActions.DeleteTask:
+            return {
+                ...state,
+                loading: true
+            }
         case ETaskActions.GetTaskSuccess:
             return {
                 ...state,
                 selectedTask: action.payload,
                 loading: false
             };
-        case ETaskActions.GetTasks: 
-        case ETaskActions.AddTask: 
-        case ETaskActions.DeleteTask:
-            return {
-                ...state,
-                loading: true
-            }
         case ETaskActions.GetTasksSuccess:
             return {
                 ...state,

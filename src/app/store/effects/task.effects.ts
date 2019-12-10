@@ -16,13 +16,14 @@ export class TaskEffects {
         private _actions$: Actions,
         private _store: Store<IAppState>
     ) { }
+
     @Effect()
     getTask$ = this._actions$.pipe(
         ofType<GetTask>(ETaskActions.GetTask),
         map(action => action.payload),
         withLatestFrom(this._store.pipe(select(selectTaskList))),
         switchMap(([id, tasks]) => {
-            const selectedTask = tasks.filter(task => task.mainTaskNo === +id)[0];
+            const selectedTask = tasks.filter(task => task.id === +id)[0];
             return of(new GetTaskSuccess(selectedTask));
         })
     );

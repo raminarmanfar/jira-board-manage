@@ -16,6 +16,7 @@ export class TaskDetailComponent {
 
   taskForm: FormGroup;
   submitBtnCaption: string;
+  detailTitle: string;
 
   constructor(
     private fb: FormBuilder,
@@ -25,8 +26,14 @@ export class TaskDetailComponent {
 
   ngOnInit(): void {
     switch (this.data.operationType) {
-      case OperationType.ADD: this.submitBtnCaption = 'Add Task'; break;
-      case OperationType.UPDATE: this.submitBtnCaption = 'Update Task'; break;
+      case OperationType.ADD: 
+      this.detailTitle = 'Create a new task'
+      this.submitBtnCaption = 'Create';
+      break;
+      case OperationType.UPDATE:
+        this.detailTitle = 'Update selected task'
+        this.submitBtnCaption = 'Update';
+        break;
       default: this.submitBtnCaption = 'Nothing';
     }
     this.taskForm = this.fb.group({
