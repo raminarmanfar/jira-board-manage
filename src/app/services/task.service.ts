@@ -29,4 +29,9 @@ export class TaskService {
     return this.http.delete<ITask>(this.tasksUrl + '/' + taskId);
   }
 
+  updateTask(taskId: number, updatedTask: ITask): Observable<ITask> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.put<ITask>(this.tasksUrl + '/' + taskId, updatedTask, {headers: headers });
+  }
+
 }

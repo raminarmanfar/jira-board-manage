@@ -1,5 +1,5 @@
 import { selectSelectedTask } from './../../store/selectors/task.selectors';
-import { GetTask } from './../../store/actions/task.actions';
+import { GetTask, UpdateTask } from './../../store/actions/task.actions';
 import { Component, ViewChild } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MatSort, MatTableDataSource, MatDialog } from '@angular/material';
@@ -11,7 +11,7 @@ import { selectTaskList } from '../../store/selectors/task.selectors';
 import { GetTasks, DeleteTask } from '../../store/actions/task.actions';
 import { OperationDetail } from '../../models/operation-detail.model';
 import { OperationType } from '../../models/task-enums';
-import { ConfirmationPopupComponent } from '../../confirmation-popup/confirmation-popup.component';
+import { ConfirmationPopupComponent } from '../confirmation-popup/confirmation-popup.component';
 import { TaskDetailComponent } from '../task-detail/task-detail.component';
 import { ConfirmationData } from '../../models/confirmation-data.mode';
 import { DetailPageData } from '../../models/detail-page-data.model';
@@ -62,7 +62,11 @@ export class TasksListComponent {
   onOperation(operationDetail: OperationDetail) {
     switch (operationDetail.operationType) {
       case OperationType.UPDATE:
-        this.raiseUpdatePopup(operationDetail.taskId);
+        this.raiseUpdatePopup(operationDetail.taskId).subscribe(task => {
+          if (task) {
+            this._store.dispatch(new UpdateTask({ taskId: operationDetail.taskId, updatedTask: task }));
+          }
+        });
         break;
       case OperationType.DELETE:
         this.raiseConfirmPopup().subscribe(res => {
@@ -74,9 +78,9 @@ export class TasksListComponent {
     }
   }
 
-  raiseUpdatePopup(taskId: number) {
+  raiseUpdatePopup(taskId: number): Observable<ITask> {
     this._store.dispatch(new GetTask(taskId));
-    this.task$.pipe(
+    const updatedTask$ = this.task$.pipe<ITask>(
       switchMap(task => {
         const detailPageData: DetailPageData = { task, operationType: OperationType.UPDATE };
 
@@ -86,8 +90,9 @@ export class TasksListComponent {
         });
         return dialogRef.afterClosed();
       }),
-      map(res => )
     );
+
+    return updatedTask$;
   }
 
   raiseConfirmPopup(): Observable<boolean> {

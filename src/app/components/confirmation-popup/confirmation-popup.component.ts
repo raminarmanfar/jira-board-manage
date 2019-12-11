@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { ConfirmationData } from '../models/confirmation-data.mode';
+import { ConfirmationData } from '../../models/confirmation-data.mode';
 
 @Component({
   selector: 'app-confirmation-popup',

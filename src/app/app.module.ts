@@ -23,7 +23,7 @@ import { TasksListComponent } from './components/tasks-list/tasks-list.component
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { TaskDetailComponent } from './components/task-detail/task-detail.component';
 import { OperationsComponent } from './components/operations/operations.component';
-import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
+import { ConfirmationPopupComponent } from './components/confirmation-popup/confirmation-popup.component';
 
 @NgModule({
   declarations: [

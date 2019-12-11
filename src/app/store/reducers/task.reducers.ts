@@ -10,6 +10,7 @@ export const taskReducers = (
         case ETaskActions.GetTasks:
         case ETaskActions.AddTask:
         case ETaskActions.DeleteTask:
+        case ETaskActions.UpdateTask:
             return {
                 ...state,
                 loading: true
@@ -32,10 +33,18 @@ export const taskReducers = (
                 tasksList: state.tasksList.concat(action.payload),
                 loading: false
             }
-        case ETaskActions.DELETETaskSuccess:
+        case ETaskActions.DeleteTaskSuccess:
             return {
                 ...state,
                 tasksList: state.tasksList.filter(item => item.id !== action.payload),
+                loading: false
+            }
+        case ETaskActions.UpdateTaskSuccess:
+            const task = state.tasksList.find(task => task.id === action.payload.id);
+            const index = state.tasksList.indexOf(task);
+            state.tasksList[index] = action.payload;
+            return {
+                ...state,
                 loading: false
             }
         default: return state;
