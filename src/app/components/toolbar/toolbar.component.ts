@@ -2,8 +2,8 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { ITask } from '../../models/task.model';
 import { TaskDetailComponent } from '../task-detail/task-detail.component';
-import { DetailPageData } from 'src/app/models/detail-page-data.model';
-import { OperationType } from 'src/app/models/task-enums';
+import { OperationType } from '../../models/task-enums';
+import { OperationDetail } from 'src/app/models/operation-detail.model';
 
 @Component({
   selector: 'app-toolbar',
@@ -27,7 +27,7 @@ export class ToolbarComponent {
       desc: null
     };
 
-    const detailPageData: DetailPageData = { task, operationType: OperationType.ADD };
+    const detailPageData: OperationDetail = { task, operationType: OperationType.ADD };
 
     const dialogRef = this.dialog.open(TaskDetailComponent, {
       width: '550px',

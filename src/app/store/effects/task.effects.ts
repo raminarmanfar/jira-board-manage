@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Store, select } from '@ngrx/store';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { of, Observable, combineLatest } from 'rxjs';
-import { switchMap, map, withLatestFrom, mergeMap } from 'rxjs/operators';
+import { switchMap, map, withLatestFrom, mergeMap, tap } from 'rxjs/operators';
 import { TaskService } from '../../services/task.service';
 import { IAppState } from '../state/app.state';
 import { selectTaskList } from '../selectors/task.selectors';
@@ -56,7 +56,8 @@ export class TaskEffects {
     updateTask$ = this._actions$.pipe(
         ofType<UpdateTask>(ETaskActions.UpdateTask),
         map(action => action.payload),
-        switchMap(payload => this._taskService.updateTask(payload.taskId, payload.updatedTask)),
-        map((task: ITask) => new UpdateTaskSuccess(task))
+        mergeMap(payload => this._taskService.updateTask(payload.taskId, payload.updatedTask).pipe(
+            map((task: ITask) => new UpdateTaskSuccess(task))
+        )),
     );
 }

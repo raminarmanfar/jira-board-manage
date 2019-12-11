@@ -1,6 +1,7 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { OperationDetail } from '../../models/operation-detail.model';
 import { OperationType } from '../../models/task-enums';
+import { ITask } from '../../models/task.model';
 
 @Component({
   selector: 'app-operations',
@@ -8,7 +9,8 @@ import { OperationType } from '../../models/task-enums';
   styleUrls: ['./operations.component.scss']
 })
 export class OperationsComponent {
-  @Input() taskId: number;
+  @Input() task: ITask;
+  @Input() taskId: number = null;
   @Output() operation: EventEmitter<OperationDetail> = new EventEmitter<OperationDetail>();
 
   get opType() { return OperationType; }
@@ -18,6 +20,7 @@ export class OperationsComponent {
 
     const operationDetail: OperationDetail = {
       operationType: operationType,
+      task: this.task,
       taskId: this.taskId
     }
     this.operation.emit(operationDetail);

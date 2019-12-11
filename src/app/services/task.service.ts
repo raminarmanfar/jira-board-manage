@@ -31,7 +31,7 @@ export class TaskService {
 
   updateTask(taskId: number, updatedTask: ITask): Observable<ITask> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.http.put<ITask>(this.tasksUrl + '/' + taskId, updatedTask, {headers: headers });
+    return this.http.put<ITask>(this.tasksUrl + '/' + taskId, updatedTask, { headers: headers });
   }
 
 }

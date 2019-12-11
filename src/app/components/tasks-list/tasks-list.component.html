@@ -18,7 +18,7 @@
                     </div>
                     <div *ngIf="isIdCol(column)">
                         <td mat-cell *matCellDef="let element">
-                            <app-operations [taskId]="element[column]" (operation)="onOperation($event)"></app-operations>
+                            <app-operations [task]="element" [taskId]="element[column]" (operation)="onOperation($event)"></app-operations>
                         </td>
                     </div>
                 </ng-container>

@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
-import { ITask } from 'src/app/models/task.model';
+import { ITask } from '../../models/task.model';
+import { OperationDetail } from '../../models/operation-detail.model';
 
 export enum ETaskActions {
     GetTask = '[Task] Get Task',

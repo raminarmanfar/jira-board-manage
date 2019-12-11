@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { TaskType, TaskStatus, OperationType } from '../../models/task-enums';
-import { DetailPageData } from '../../models/detail-page-data.model';
+import { OperationDetail } from '../../models/operation-detail.model';
 
 @Component({
   selector: 'app-task-detail',
@@ -21,7 +21,7 @@ export class TaskDetailComponent {
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<TaskDetailComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DetailPageData
+    @Inject(MAT_DIALOG_DATA) public data: OperationDetail
   ) { }
 
   ngOnInit(): void {
