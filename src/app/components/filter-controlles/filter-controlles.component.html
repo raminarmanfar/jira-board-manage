@@ -1,0 +1,10 @@
+<div class="filter-container">
+    <mat-button-toggle-group #group="matButtonToggleGroup" (change)="onChange(group.value)" [multiple]="true"
+        [appearance]="'legacy'">
+        <mat-button-toggle *ngFor="let item of toggleItems" value="{{ item.id }}"
+            [ngClass]="{'btn-toggle': isToggled(item.id)}" matTooltip="{{ item.title }}"
+            [matTooltipPosition]="'above'" matTooltipClass="tooltip">
+            <mat-icon>{{ item.icon }}</mat-icon>
+        </mat-button-toggle>
+    </mat-button-toggle-group>
+</div>

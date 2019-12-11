@@ -24,6 +24,7 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { TaskDetailComponent } from './components/task-detail/task-detail.component';
 import { OperationsComponent } from './components/operations/operations.component';
 import { ConfirmationPopupComponent } from './components/confirmation-popup/confirmation-popup.component';
+import { FilterControllesComponent } from './components/filter-controlles/filter-controlles.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { ConfirmationPopupComponent } from './components/confirmation-popup/conf
     EnumToArrayPipe,
     AutoFocusDirective,
     OperationsComponent,
-    ConfirmationPopupComponent
+    ConfirmationPopupComponent,
+    FilterControllesComponent
   ],
   imports: [
     FormsModule,

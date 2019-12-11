@@ -99,4 +99,8 @@ export class TasksListComponent {
     });
     return dialogRef.afterClosed();
   }
+
+  onFilterTogglesChange(togglesStatus: string[]) {
+    console.log('>>>', togglesStatus);
+  }
 }
