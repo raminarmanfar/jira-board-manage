@@ -8,11 +8,11 @@
         <mat-icon>delete</mat-icon>
     </button>
     <button mat-icon-button color="accent" (click)="doOperation($event, opType.DONE)" matTooltip="Done the task"
-        [matTooltipPosition]="'above'" matTooltipClass="tooltip">
+        [matTooltipPosition]="'above'" matTooltipClass="tooltip" [disabled]="task.status === taskStatus.DONE">
         <mat-icon>done</mat-icon>
     </button>
     <button mat-icon-button color="accent" (click)="doOperation($event, opType.BLOCK)" matTooltip="Block the task"
-        [matTooltipPosition]="'above'" matTooltipClass="tooltip">
+        [matTooltipPosition]="'above'" matTooltipClass="tooltip" [disabled]="task.status === taskStatus.BLOCKED">
         <mat-icon>block</mat-icon>
     </button>
 </div>

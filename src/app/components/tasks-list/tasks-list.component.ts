@@ -2,7 +2,7 @@ import { selectSelectedTask } from './../../store/selectors/task.selectors';
 import { GetTask, UpdateTask, AddTask } from './../../store/actions/task.actions';
 import { Component, ViewChild } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { MatSort, MatTableDataSource, MatDialog } from '@angular/material';
+import { MatSort, MatTableDataSource, MatDialog, MatSnackBar } from '@angular/material';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { ITask } from '../../models/task.model';
@@ -35,7 +35,10 @@ export class TasksListComponent {
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private _store: Store<IAppState>, public dialog: MatDialog) { }
+  constructor(
+    private _store: Store<IAppState>,
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this._store.dispatch(new GetTasks);
@@ -54,7 +57,7 @@ export class TasksListComponent {
   }
 
   isIdCol(column: string): boolean {
-    return !['mainTaskNo', 'subTaskNo', 'type', 'status'].includes(column);
+    return !['notStarted', 'mainTaskNo', 'subTaskNo', 'type', 'status'].includes(column);
   }
 
   onOperation(operationDetail: OperationDetail) {
@@ -63,6 +66,7 @@ export class TasksListComponent {
         this.raiseUpdatePopup(operationDetail.taskId, operationDetail.task).subscribe(updatedTask => {
           if (updatedTask) {
             this._store.dispatch(new UpdateTask({ taskId: operationDetail.taskId, updatedTask }));
+            this._snackBar.open(`Task (${operationDetail.task.mainTaskNo}, ${operationDetail.task.subTaskNo}) updated.`, 'UPDATE TASK', { duration: 3000 });
           }
         });
         break;
@@ -70,6 +74,7 @@ export class TasksListComponent {
         this.raiseConfirmPopup().subscribe(res => {
           if (res) {
             this._store.dispatch(new DeleteTask(operationDetail.task.id));
+            this._snackBar.open(`Task (${operationDetail.task.mainTaskNo}, ${operationDetail.task.subTaskNo}) deleted.`, 'DELETE TASK', { duration: 3000 });
           }
         });
         break;

@@ -1,6 +1,6 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { OperationDetail } from '../../models/operation-detail.model';
-import { OperationType } from '../../models/task-enums';
+import { OperationType, TaskStatus } from '../../models/task-enums';
 import { ITask } from '../../models/task.model';
 
 @Component({
@@ -14,6 +14,7 @@ export class OperationsComponent {
   @Output() operation: EventEmitter<OperationDetail> = new EventEmitter<OperationDetail>();
 
   get opType() { return OperationType; }
+  get taskStatus() { return TaskStatus; }
 
   doOperation(event, operationType: OperationType) {
     event.stopPropagation();
