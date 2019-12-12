@@ -1,59 +1,58 @@
+import { TaskStatus } from './task-enums';
+
 export interface ToggleBtnData {
     id: string;
+    status: TaskStatus;
     title: string;
     icon: string;
-    checked: boolean;
+    isNot?: boolean;
 }
 
 export function initToggles(): ToggleBtnData[] {
     return [
         {
             id: 'notStarted',
+            status: TaskStatus.NOT_STARTED,
             title: 'Show not started',
             icon: 'power_off',
-            checked: false
+            isNot: true
         },
         {
             id: 'done',
+            status: TaskStatus.DONE,
             title: 'Show Done',
-            icon: 'done',
-            checked: false
+            icon: 'done'
         },
         {
             id: 'notDone',
+            status: TaskStatus.DONE,
             title: 'Show Not Done',
             icon: 'clear',
-            checked: false
+            isNot: true
         },
         {
             id: 'inProgress',
+            status: TaskStatus.IN_PROGRESS,
             title: 'Show in progress',
-            icon: 'trending_up',
-            checked: false
+            icon: 'trending_up'
         },
         {
             id: 'inTest',
+            status: TaskStatus.IN_TEST,
             title: 'Show in test',
-            icon: 'ballot',
-            checked: false
+            icon: 'ballot'
         },
         {
-            id: '1thReview',
+            id: 'inReview',
+            status: TaskStatus.IN_REVIEW,
             title: 'Show 1th reviews',
-            icon: 'sync',
-            checked: false
-        },
-        {
-            id: '2ndReview',
-            title: 'Show 2nd reviews',
-            icon: 'sync_problem',
-            checked: false
+            icon: 'sync'
         },
         {
             id: 'blocked',
+            status: TaskStatus.BLOCKED,
             title: 'Show blocked',
-            icon: 'block',
-            checked: false
+            icon: 'block'
         },
     ];
 }

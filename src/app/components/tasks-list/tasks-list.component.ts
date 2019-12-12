@@ -14,6 +14,7 @@ import { OperationType, TaskStatus } from '../../models/task-enums';
 import { ConfirmationPopupComponent } from '../confirmation-popup/confirmation-popup.component';
 import { TaskDetailComponent } from '../task-detail/task-detail.component';
 import { ConfirmationData } from '../../models/confirmation-data.mode';
+import { ToggleBtnData } from 'src/app/models/toggle-btn-data.model';
 @Component({
   selector: 'app-tasks-list',
   templateUrl: './tasks-list.component.html',
@@ -128,7 +129,6 @@ export class TasksListComponent {
           }
         });
         break;
-
     }
   }
 
@@ -150,7 +150,27 @@ export class TasksListComponent {
     return dialogRef.afterClosed();
   }
 
-  onFilterTogglesChange(togglesStatus: string[]) {
-    console.log('>>>', togglesStatus);
+  onFilterTogglesChange(filteredToggles: ToggleBtnData[]) {
+
+    const filteredData = this.dataSource.data.filter(item => {
+      let notIncludeList: TaskStatus[] = [];
+      for (let toggle of filteredToggles) {
+        if (toggle.status === item.status) {
+          if (toggle.isNot) {
+            notIncludeList.push(toggle.status);
+          } else {
+            return true;
+          }
+        }
+      }
+    });
+
+    this.tasks$.subscribe(tasks => {
+      this.dataSource = new MatTableDataSource<ITask>(tasks);
+      this.dataSource.sort = this.sort;
+    });
+
+    this.dataSource.data = filteredData;
+    console.log('>>>filteredData:', filteredData);
   }
 }
