@@ -6,7 +6,7 @@ import { switchMap, map, withLatestFrom, mergeMap, tap } from 'rxjs/operators';
 import { TaskService } from '../../services/task.service';
 import { IAppState } from '../state/app.state';
 import { selectTaskList } from '../selectors/task.selectors';
-import { GetTasks, ETaskActions, GetTask, GetTaskSuccess, GetTasksSuccess, AddTaskSuccess, AddTask, DeleteTaskSuccess, DeleteTask, UpdateTask, UpdateTaskSuccess } from '../actions/task.actions';
+import { GetTasks, ETaskActions, GetTask, GetTaskSuccess, GetTasksSuccess, AddTaskSuccess, AddTask, DeleteTaskSuccess, DeleteTask, UpdateTask, UpdateTaskSuccess, UpdateTaskStatus } from '../actions/task.actions';
 import { ITask } from 'src/app/models/task.model';
 
 @Injectable()
@@ -60,4 +60,14 @@ export class TaskEffects {
             map((task: ITask) => new UpdateTaskSuccess(task))
         )),
     );
+
+    @Effect()
+    updateTaskStatus$ = this._actions$.pipe(
+        ofType<UpdateTaskStatus>(ETaskActions.UpdateTaskStatus),
+        map(action => action.payload),
+        mergeMap(payload => this._taskService.updateTaskStatus(payload.taskId, payload.updatedTask, payload.newStatus).pipe(
+            map((task: ITask) => new UpdateTaskSuccess(task))
+        )),
+    );
+
 }

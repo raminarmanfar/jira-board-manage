@@ -12,6 +12,7 @@ export const taskReducers = (
         case ETaskActions.AddTask:
         case ETaskActions.DeleteTask:
         case ETaskActions.UpdateTask:
+        case ETaskActions.UpdateTaskStatus:
             return {
                 ...state,
                 loading: true

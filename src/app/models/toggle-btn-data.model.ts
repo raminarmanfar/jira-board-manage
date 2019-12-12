@@ -28,7 +28,7 @@ export function initToggles(): ToggleBtnData[] {
         {
             id: 'inProgress',
             title: 'Show in progress',
-            icon: 'restore',
+            icon: 'trending_up',
             checked: false
         },
         {

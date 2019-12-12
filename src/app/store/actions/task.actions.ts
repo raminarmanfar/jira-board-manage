@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 import { ITask } from '../../models/task.model';
 import { OperationDetail } from '../../models/operation-detail.model';
+import { TaskStatus } from 'src/app/models/task-enums';
 
 export enum ETaskActions {
     GetTask = '[Task] Get Task',
@@ -12,7 +13,8 @@ export enum ETaskActions {
     DeleteTask = '[Task] Delete Task',
     DeleteTaskSuccess = '[Task] Delete Task Success',
     UpdateTask = '[Task] Update Task',
-    UpdateTaskSuccess = '[Task] Update Task Success'
+    UpdateTaskSuccess = '[Task] Update Task Success',
+    UpdateTaskStatus = '[Task] Update Task Status'
 }
 
 export class GetTask implements Action {
@@ -64,6 +66,11 @@ export class UpdateTaskSuccess implements Action {
     constructor(public payload: ITask) {}
 }
 
+export class UpdateTaskStatus implements Action {
+    public readonly type = ETaskActions.UpdateTaskStatus;
+    constructor(public payload: { taskId: number, updatedTask: ITask, newStatus: TaskStatus }) {}
+}
+
 export type TaskActions 
     = GetTask 
     | GetTaskSuccess 
@@ -74,4 +81,5 @@ export type TaskActions
     | DeleteTask
     | DeleteTaskSuccess
     | UpdateTask
-    | UpdateTaskSuccess;
+    | UpdateTaskSuccess
+    | UpdateTaskStatus;

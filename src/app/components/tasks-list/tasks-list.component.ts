@@ -1,5 +1,5 @@
 import { selectSelectedTask } from './../../store/selectors/task.selectors';
-import { GetTask, UpdateTask, AddTask } from './../../store/actions/task.actions';
+import { GetTask, UpdateTask, AddTask, UpdateTaskStatus } from './../../store/actions/task.actions';
 import { Component, ViewChild } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MatSort, MatTableDataSource, MatDialog, MatSnackBar } from '@angular/material';
@@ -10,7 +10,7 @@ import { IAppState } from '../../store/state/app.state';
 import { selectTaskList } from '../../store/selectors/task.selectors';
 import { GetTasks, DeleteTask } from '../../store/actions/task.actions';
 import { OperationDetail } from '../../models/operation-detail.model';
-import { OperationType } from '../../models/task-enums';
+import { OperationType, TaskStatus } from '../../models/task-enums';
 import { ConfirmationPopupComponent } from '../confirmation-popup/confirmation-popup.component';
 import { TaskDetailComponent } from '../task-detail/task-detail.component';
 import { ConfirmationData } from '../../models/confirmation-data.mode';
@@ -61,6 +61,12 @@ export class TasksListComponent {
   }
 
   onOperation(operationDetail: OperationDetail) {
+    const confirmData: ConfirmationData = {
+      title: null,
+      confirmBtnCaption: 'Yes',
+      rejectBtnCaption: 'No'
+    };
+
     switch (operationDetail.operationType) {
       case OperationType.UPDATE:
         this.raiseUpdatePopup(operationDetail.taskId, operationDetail.task).subscribe(updatedTask => {
@@ -71,13 +77,58 @@ export class TasksListComponent {
         });
         break;
       case OperationType.DELETE:
-        this.raiseConfirmPopup().subscribe(res => {
+        const deleteConfirmData: ConfirmationData = {
+          title: 'Deleting selected task from the list, are you sure?',
+          confirmBtnCaption: 'Yes',
+          rejectBtnCaption: 'No'
+        };
+        this.raiseConfirmPopup(deleteConfirmData).subscribe(res => {
           if (res) {
             this._store.dispatch(new DeleteTask(operationDetail.task.id));
             this._snackBar.open(`Task (${operationDetail.task.mainTaskNo}, ${operationDetail.task.subTaskNo}) deleted.`, 'DELETE TASK', { duration: 3000 });
           }
         });
         break;
+      case OperationType.DONE:
+        confirmData.title = 'Done the selected task, are you sure?';
+        this.raiseConfirmPopup(confirmData).subscribe(res => {
+          if (res) {
+            this._store.dispatch(new UpdateTaskStatus({
+              taskId: operationDetail.taskId,
+              updatedTask: operationDetail.task,
+              newStatus: TaskStatus.DONE
+            }));
+            this._snackBar.open(`Task (${operationDetail.task.mainTaskNo}, ${operationDetail.task.subTaskNo}) is done.`, 'TASK DONE', { duration: 3000 });
+          }
+        });
+        break;
+      case OperationType.BLOCK:
+        confirmData.title = 'Block the selected task, are you sure?';
+        this.raiseConfirmPopup(confirmData).subscribe(res => {
+          if (res) {
+            this._store.dispatch(new UpdateTaskStatus({
+              taskId: operationDetail.taskId,
+              updatedTask: operationDetail.task,
+              newStatus: TaskStatus.BLOCKED
+            }));
+            this._snackBar.open(`Task (${operationDetail.task.mainTaskNo}, ${operationDetail.task.subTaskNo}) is blocked!`, 'TASK BLOCKED', { duration: 3000 });
+          }
+        });
+        break;
+      case OperationType.PROGRESS:
+        confirmData.title = 'Moving the selected task into the progress, are you sure?';
+        this.raiseConfirmPopup(confirmData).subscribe(res => {
+          if (res) {
+            this._store.dispatch(new UpdateTaskStatus({
+              taskId: operationDetail.taskId,
+              updatedTask: operationDetail.task,
+              newStatus: TaskStatus.IN_PROGRESS
+            }));
+            this._snackBar.open(`Task (${operationDetail.task.mainTaskNo}, ${operationDetail.task.subTaskNo}) moved to progress.`, 'IN PROGRESS', { duration: 3000 });
+          }
+        });
+        break;
+
     }
   }
 
@@ -91,13 +142,7 @@ export class TasksListComponent {
     return dialogRef.afterClosed();
   }
 
-  raiseConfirmPopup(): Observable<boolean> {
-    const confirmationData: ConfirmationData = {
-      title: 'Deleting selected task from the list, are you sure?',
-      confirmBtnCaption: 'Yes',
-      rejectBtnCaption: 'No'
-    };
-
+  raiseConfirmPopup(confirmationData: ConfirmationData): Observable<boolean> {
     const dialogRef = this.dialog.open(ConfirmationPopupComponent, {
       width: '450px',
       data: confirmationData

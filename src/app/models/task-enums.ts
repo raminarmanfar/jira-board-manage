@@ -24,4 +24,5 @@ export enum OperationType {
     DELETE = 'delete',
     DONE = 'done',
     BLOCK = 'block',
+    PROGRESS = 'progress'
 }

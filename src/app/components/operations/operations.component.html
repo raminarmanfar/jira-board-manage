@@ -15,4 +15,9 @@
         [matTooltipPosition]="'above'" matTooltipClass="tooltip" [disabled]="task.status === taskStatus.BLOCKED">
         <mat-icon>block</mat-icon>
     </button>
+    <button mat-icon-button color="accent" (click)="doOperation($event, opType.PROGRESS)" matTooltip="Move to progress"
+        [matTooltipPosition]="'above'" matTooltipClass="tooltip" [disabled]="task.status === taskStatus.IN_PROGRESS">
+        <mat-icon>trending_up</mat-icon>
+    </button>
+
 </div>

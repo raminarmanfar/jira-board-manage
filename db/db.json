@@ -46,7 +46,7 @@
       "assignDate": "2019-12-12T08:21:34.912Z",
       "doneDate": null,
       "type": "Development",
-      "status": "In Test",
+      "status": "Done",
       "desc": "done.",
       "id": 6
     },
@@ -66,7 +66,7 @@
       "assignDate": "2019-12-12T08:30:33.252Z",
       "doneDate": null,
       "type": "1th Review",
-      "status": "In Review",
+      "status": "Done",
       "desc": "test add",
       "id": 8
     },
@@ -94,7 +94,7 @@
       "mainTaskNo": "1822",
       "subTaskNo": "1933",
       "assignDate": "2019-12-12T09:04:08.634Z",
-      "doneDate": null,
+      "doneDate": "2019-12-12T10:19:50.090Z",
       "type": "Development",
       "status": "Done",
       "desc": "nooooooo",
@@ -104,9 +104,9 @@
       "mainTaskNo": "2288",
       "subTaskNo": "3399",
       "assignDate": "2019-12-12T09:05:50.397Z",
-      "doneDate": null,
+      "doneDate": "2019-12-12T10:12:56.378Z",
       "type": "Development",
-      "status": "Not Started",
+      "status": "Done",
       "desc": "not",
       "id": 12
     }
