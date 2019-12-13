@@ -1,6 +1,6 @@
 import { selectSelectedTask } from './../../store/selectors/task.selectors';
 import { GetTask, UpdateTask, AddTask, UpdateTaskStatus } from './../../store/actions/task.actions';
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, HostListener, ElementRef } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MatSort, MatTableDataSource, MatDialog, MatSnackBar } from '@angular/material';
 import { Store, select } from '@ngrx/store';
@@ -28,6 +28,7 @@ import { ToggleBtnData } from 'src/app/models/toggle-btn-data.model';
   ],
 })
 export class TasksListComponent {
+  screenHeight: number;
   columnsToDisplay: string[] = ['mainTaskNo', 'subTaskNo', 'assignDate', 'type', 'status', 'id'];
   colsDisplayValues: string[] = ['Main Task No', 'Sub Task No', 'Assign Date', 'Type', 'Status', 'Operations'];
   tasks$: Observable<ITask[]> = this._store.pipe(select(selectTaskList));
@@ -35,6 +36,7 @@ export class TasksListComponent {
   dataSource: MatTableDataSource<ITask>;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild('filterInput', { static: true }) filterInput: ElementRef;
 
   constructor(
     private _store: Store<IAppState>,
@@ -42,11 +44,18 @@ export class TasksListComponent {
     private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
+    this.onResize();
     this._store.dispatch(new GetTasks);
     this.tasks$.subscribe(tasks => {
       this.dataSource = new MatTableDataSource<ITask>(tasks);
       this.dataSource.sort = this.sort;
     });
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event?) {
+    this.screenHeight = window.innerHeight - 105;
+    // this.screenWidth = window.innerWidth;
   }
 
   applyFilter(filterValue: string) {
@@ -55,6 +64,24 @@ export class TasksListComponent {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  onFilterTogglesChange(filteredToggles: ToggleBtnData[]) {
+    this._store.dispatch(new GetTasks);
+    this.tasks$.subscribe(tasks => {
+      this.dataSource = new MatTableDataSource<ITask>(tasks);
+      this.dataSource.sort = this.sort;
+
+      const filteredData = tasks.filter(item => {
+        for (let toggle of filteredToggles) {
+          if ((toggle.status === item.status && !toggle.isNot) || (toggle.status !== item.status && toggle.isNot)) {
+            return true;
+          }
+        }
+      });
+      this.dataSource.data = filteredData.length > 0 || filteredToggles.length > 0 ? filteredData : tasks;
+      this.applyFilter(this.filterInput.nativeElement.value);
+    });
   }
 
   isIdCol(column: string): boolean {
@@ -148,29 +175,5 @@ export class TasksListComponent {
       data: confirmationData
     });
     return dialogRef.afterClosed();
-  }
-
-  onFilterTogglesChange(filteredToggles: ToggleBtnData[]) {
-
-    const filteredData = this.dataSource.data.filter(item => {
-      let notIncludeList: TaskStatus[] = [];
-      for (let toggle of filteredToggles) {
-        if (toggle.status === item.status) {
-          if (toggle.isNot) {
-            notIncludeList.push(toggle.status);
-          } else {
-            return true;
-          }
-        }
-      }
-    });
-
-    this.tasks$.subscribe(tasks => {
-      this.dataSource = new MatTableDataSource<ITask>(tasks);
-      this.dataSource.sort = this.sort;
-    });
-
-    this.dataSource.data = filteredData;
-    console.log('>>>filteredData:', filteredData);
   }
 }

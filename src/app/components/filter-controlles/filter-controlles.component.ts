@@ -1,6 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ToggleBtnData, initToggles } from '../../models/toggle-btn-data.model';
-import { TaskStatus } from '../../models/task-enums';
 
 @Component({
   selector: 'app-filter-controlles',
@@ -28,7 +27,6 @@ export class FilterControllesComponent implements OnInit {
   }
 
   isToggled(selectedToggleId: string): boolean {
-    // const selectedToggleStatus = this.toggleItems.find(res => res.id === selectedToggleId).status;
     return this.toggleIds.includes(selectedToggleId);
   }
 

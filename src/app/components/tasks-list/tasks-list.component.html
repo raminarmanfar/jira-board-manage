@@ -1,8 +1,10 @@
-<div class="table-container" class="tbl-header">
+<div>
     <mat-form-field>
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" #filterInput>
     </mat-form-field>
     <app-filter-controlles (change)="onFilterTogglesChange($event)"></app-filter-controlles>
+</div>
+<div class="table-container" class="tbl-header" [ngStyle]="{'height': screenHeight + 'px'}">
     <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8" matSort>
         <div *ngFor="let column of columnsToDisplay; let i = index">
             <div *ngIf="column === 'assignDate'">
@@ -12,24 +14,31 @@
                 </ng-container>
             </div>
             <div *ngIf="column !== 'assignDate'">
-                <ng-container matColumnDef="{{ column }}">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ colsDisplayValues[i] }}</th>
-                    <div *ngIf="!isIdCol(column)">
-                        <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
-                    </div>
-                    <div *ngIf="isIdCol(column)">
+                <div *ngIf="isIdCol(column)">
+                    <ng-container matColumnDef="{{ column }}" stickyEnd="true">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ colsDisplayValues[i] }}</th>
                         <td mat-cell *matCellDef="let element">
-                            <app-operations [task]="element" [taskId]="element[column]" (operation)="onOperation($event)"></app-operations>
+                            <app-operations [task]="element" [taskId]="element[column]"
+                                (operation)="onOperation($event)">
+                            </app-operations>
                         </td>
-                    </div>
-                </ng-container>
+                    </ng-container>
+                </div>
+
+                <div *ngIf="!isIdCol(column)">
+                    <ng-container matColumnDef="{{ column }}">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ colsDisplayValues[i] }}</th>
+                        <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
+                    </ng-container>
+                </div>
             </div>
         </div>
 
         <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
         <ng-container matColumnDef="expandedDetail">
             <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
-                <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                <div class="example-element-detail"
+                    [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
                     <div class="example-element-diagram">
                         <div class="example-element-mainTaskNo"> {{ element.mainTaskNo }} </div>
                         <div class="example-element-subTaskNo"> {{ element.subTaskNo }} </div>
@@ -41,10 +50,9 @@
                 </div>
             </td>
         </ng-container>
-        
+
         <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-        <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
-            class="example-element-row"
+        <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row"
             [class.example-expanded-row]="expandedElement === element"
             (click)="expandedElement = expandedElement === element ? null : element">
         </tr>

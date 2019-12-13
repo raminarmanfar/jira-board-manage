@@ -15,7 +15,6 @@ export function initToggles(): ToggleBtnData[] {
             status: TaskStatus.NOT_STARTED,
             title: 'Show not started',
             icon: 'power_off',
-            isNot: true
         },
         {
             id: 'done',

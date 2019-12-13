@@ -1,7 +1,8 @@
 .float-buttons-container {
   position: fixed;
   bottom: 5px;
-  right: 5px; 
+  right: 35px;
+  z-index: 1;
 }
 
 .btn-primary {
