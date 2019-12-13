@@ -1,4 +1,4 @@
-<form class="example-form" [formGroup]="taskForm" (submit)="onFormSubmit()">
+<form class="example-form" [formGroup]="taskForm" #frm="ngForm" (ngSubmit)="onFormSubmit()">
   <h1 mat-dialog-title>{{ detailTitle }}</h1>
   <div mat-dialog-content class="mat-form">
     <table class="example-full-width" cellspacing="2">
@@ -6,14 +6,26 @@
         <td class="col">
           <mat-form-field class="example-full-width">
             <input matInput #mainTaskNo maxlength="4" placeholder="Main Task No" formControlName="mainTaskNo"
-              appAutoFocus />
+              name="mainTaskNo" appAutoFocus required />
             <mat-hint align="end">{{ mainTaskNo.value.length }} / 4</mat-hint>
+            <mat-error *ngIf="getValidatorError('mainTaskNo', 'required')">
+              Main Task Number is <strong>required</strong>!
+            </mat-error>
+            <mat-error *ngIf="getValidatorError('mainTaskNo', 'minlength')">
+              Minimum lenght is <strong>4</strong>!
+            </mat-error>
           </mat-form-field>
         </td>
         <td>
           <mat-form-field class="example-full-width">
-            <input matInput #subTaskNo maxlength="4" placeholder="Sub Task No" formControlName="subTaskNo" />
+            <input matInput #subTaskNo maxlength="4" placeholder="Sub Task No" formControlName="subTaskNo" required name="subTaskNo"/>
             <mat-hint align="end">{{ subTaskNo.value.length }} / 4</mat-hint>
+            <mat-error *ngIf="getValidatorError('subTaskNo', 'required')">
+              Sub task number is <strong>required</strong>!
+            </mat-error>
+            <mat-error *ngIf="getValidatorError('subTaskNo', 'minlength')">
+              Minimum lenght is <strong>4</strong>!
+            </mat-error>
           </mat-form-field>
         </td>
       </tr>
@@ -46,28 +58,36 @@
         <td>
           <mat-form-field class="example-full-width">
             <mat-label>Task Type</mat-label>
-            <mat-select formControlName="type">
+            <mat-select formControlName="type" name="taskType">
               <mat-option *ngFor="let type of taskTypes | enumToArray" [value]="type">
                 {{ type }}
               </mat-option>
             </mat-select>
+            <!-- <mat-error *ngIf="getValidatorError('taskType', 'required')">
+              Task type is <strong>required</strong>!
+            </mat-error> -->
           </mat-form-field>
         </td>
         <td>
           <mat-form-field class="example-full-width">
             <mat-label>Status</mat-label>
-            <mat-select formControlName="status">
+            <mat-select formControlName="status" name="taskStatus">
               <mat-option *ngFor="let status of taskStatus | enumToArray" [value]="status">
                 {{ status }}
               </mat-option>
             </mat-select>
+            <!-- <mat-error *ngIf="getValidatorError('taskStatus', 'required')">
+              Task status is <strong>required</strong>!
+            </mat-error> -->
           </mat-form-field>
         </td>
       </tr>
       <tr>
         <td colspan="2">
-          <mat-form-field class="example-full-width">
-            <textarea matInput placeholder="Description" formControlName="desc"></textarea>
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Description</mat-label>
+            <textarea matInput #description placeholder="Write description here." formControlName="desc"></textarea>
+            <mat-hint align="end">{{ description.value.length }}</mat-hint>
           </mat-form-field>
         </td>
       </tr>
@@ -75,7 +95,7 @@
   </div>
   <div mat-dialog-actions>
     <div class="btn-container">
-      <button mat-raised-button class="btn" type="submit" cdkFocusInitial color="primary">
+      <button mat-raised-button class="btn" type="submit" color="primary" [disabled]="!taskForm.valid">
         {{ submitBtnCaption }}
       </button>
       <button mat-raised-button class="btn" type="button" (click)="onCancelClick()" color="accent">Cancel</button>

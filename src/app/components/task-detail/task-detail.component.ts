@@ -1,8 +1,9 @@
 import { Component, Inject } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { TaskType, TaskStatus, OperationType } from '../../models/task-enums';
 import { OperationDetail } from '../../models/operation-detail.model';
+import { ITask } from 'src/app/models/task.model';
 
 @Component({
   selector: 'app-task-detail',
@@ -37,12 +38,12 @@ export class TaskDetailComponent {
       default: this.submitBtnCaption = 'Nothing';
     }
     this.taskForm = this.fb.group({
-      mainTaskNo: new FormControl({ value: this.data.task.mainTaskNo, disabled: false }),
-      subTaskNo: new FormControl({ value: this.data.task.subTaskNo, disabled: false }),
+      mainTaskNo: new FormControl({ value: this.data.task.mainTaskNo, disabled: false }, [Validators.required, Validators.minLength(4)]),
+      subTaskNo: new FormControl({ value: this.data.task.subTaskNo, disabled: false }, [Validators.required, Validators.minLength(4)]),
       assignDate: new FormControl({ value: this.data.task.assignDate, disabled: this.data.operationType === OperationType.ADD }),
       doneDate: new FormControl({ value: this.data.task.doneDate, disabled: this.data.operationType === OperationType.ADD }),
-      type: new FormControl({ value: this.data.task.type, disabled: false }),
-      status: new FormControl({ value: this.data.task.status, disabled: false }),
+      type: new FormControl({ value: this.data.task.type, disabled: false }, [Validators.required]),
+      status: new FormControl({ value: this.data.task.status, disabled: false }, [Validators.required]),
       desc: new FormControl({ value: this.data.task.desc, disabled: false })
     });
   }
@@ -54,4 +55,8 @@ export class TaskDetailComponent {
   onFormSubmit() {
     this.dialogRef.close(this.taskForm.getRawValue());
   }
+
+getValidatorError(inputName: string, errorType: string): boolean {
+  return this.taskForm.get(inputName).hasError(errorType);
+}  
 }
