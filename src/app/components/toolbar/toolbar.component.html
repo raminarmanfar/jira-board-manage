@@ -1,25 +1,20 @@
 <div class="float-buttons-container">
-  <div class="btn-primary">
-    <button
-      mat-fab
-      matTooltip="Add a new task"
-      matTooltipClass="tooltip"
-      [matTooltipPosition]="'left'"
-      color="primary"
-      (click)="openAddTaskDialog()"
-    >
+  <div class="btn-spacing">
+    <button mat-fab matTooltip="Add a new task" matTooltipClass="tooltip" [matTooltipPosition]="'left'" color="primary"
+      (click)="openAddTaskDialog()">
       <mat-icon>add</mat-icon>
     </button>
   </div>
   <div>
-    <button
-      mat-fab
-      matTooltip="List of jira tasks"
-      matTooltipClass="tooltip"
-      [matTooltipPosition]="'left'"
-      color="accent"
-      [routerLink]="['/list']"
-    >
+    <button mat-fab matTooltip="Delete all tasks" matTooltipClass="tooltip" [matTooltipPosition]="'left'"
+      color="warn" (click)="deleteAllTasks()" class="btn-spacing">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+
+  <div>
+    <button mat-fab matTooltip="List of jira tasks" matTooltipClass="tooltip" [matTooltipPosition]="'left'"
+      color="accent" [routerLink]="['/list']">
       <mat-icon>list</mat-icon>
     </button>
   </div>

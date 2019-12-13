@@ -13,7 +13,7 @@ import { OperationDetail } from 'src/app/models/operation-detail.model';
 export class ToolbarComponent {
   @Output() addTask: EventEmitter<ITask> = new EventEmitter<ITask>();
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog) { }
 
   openAddTaskDialog(): void {
     const today = new Date();
@@ -35,4 +35,9 @@ export class ToolbarComponent {
     });
 
     dialogRef.afterClosed().subscribe((task: ITask) => this.addTask.emit(task));
-  }}
+  }
+
+  deleteAllTasks() {
+    
+  }
+}
