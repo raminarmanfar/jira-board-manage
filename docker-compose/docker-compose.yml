@@ -1,0 +1,25 @@
+version: "2"
+
+services:
+  jira-backend:
+    restart: always
+    image: vimagick/json-server
+    container_name: jira-backend
+    command: -H 0.0.0.0 -p 3000 -w ../data/db.json
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../data:/data
+
+  jira-frontend:
+    restart: always
+    image: raminarmanfar/jira-board-manage:0.0.0
+    container_name: jira-frontend
+    depends_on:
+      - jira-backend
+    command: ['nginx', '-g', 'daemon off;']
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./proxy.conf:/etc/nginx/proxy.conf
+    ports:
+      - 3500:80
